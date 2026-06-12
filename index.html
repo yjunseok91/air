@@ -362,29 +362,16 @@ function init() {
   startApp();
 }
 function startApp() {
-  scriptUrl = localStorage.getItem('scriptUrl') || '';
-  if (!scriptUrl) {
-    showView('setup-view');
-  } else {
-    showView('list-view');
-    document.getElementById('current-year-badge').textContent = currentYear + '년 \u25BE';
-    buildCategoryChips();
-    buildRegionChips();
-    loadFromSheets();
-  }
-}
-
-/* ── SETUP ── */
-function saveSetup() {
-  var url = document.getElementById('setup-url').value.trim();
-  if (!url || url.indexOf('script.google.com') < 0) { alert('올바른 Apps Script URL을 입력해주세요.'); return; }
-  localStorage.setItem('scriptUrl', url);
-  scriptUrl = url;
   showView('list-view');
   document.getElementById('current-year-badge').textContent = currentYear + '년 \u25BE';
   buildCategoryChips();
   buildRegionChips();
   loadFromSheets();
+}
+
+/* ── SETUP ── */
+function saveSetup() {
+  startApp();
 }
 
 /* ── Sheets API ── */
