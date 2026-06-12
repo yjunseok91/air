@@ -261,25 +261,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <div class="settings-body">
     <div class="settings-row">
       <div class="settings-item">
-        <div class="settings-item-title">&#128279; Apps Script URL</div>
-        <div class="settings-item-sub">변경 시 재입력</div>
-        <input type="text" id="settings-url" placeholder="https://script.google.com/macros/s/...">
-        <div id="url-status" class="url-status"></div>
-        <button class="s-btn" onclick="saveSettingsUrl()">URL 저장 및 연결 테스트</button>
-      </div>
-    </div>
-    <div class="settings-row">
-      <div class="settings-item">
         <div class="settings-item-title">&#128260; 데이터 다시 불러오기</div>
         <div class="settings-item-sub">Sheets에서 최신 데이터를 가져옵니다</div>
         <button class="s-btn" onclick="loadFromSheets();closeSettings()">&#8635; 지금 동기화</button>
-      </div>
-    </div>
-    <div class="settings-row">
-      <div class="settings-item">
-        <div class="settings-item-title" style="color:#c5221f">&#9888; 초기화</div>
-        <div class="settings-item-sub">URL 설정을 초기화하고 설정 화면으로 돌아갑니다</div>
-        <button class="s-btn-red" onclick="resetApp()">초기화</button>
       </div>
     </div>
   </div>
