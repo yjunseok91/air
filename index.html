@@ -257,7 +257,8 @@ function updatePinDots() {
 }
 function checkPin() {
   if (pinBuffer === PIN_CORRECT) {
-    sessionStorage.setItem('pinOk', '1');
+    var expire = Date.now() + 24 * 60 * 60 * 1000; // 24시간
+    localStorage.setItem('pinOk', String(expire));
     startApp();
   } else {
     document.getElementById('pin-error').textContent = '잘못된 PIN입니다. 다시 시도하세요.';
@@ -273,7 +274,11 @@ function checkPin() {
 
 /* ── 초기화 ── */
 function init() {
-  if (!sessionStorage.getItem('pinOk')) { showPin(); return; }
+  var pinExpire = localStorage.getItem('pinOk');
+  if (!pinExpire || Date.now() > parseInt(pinExpire)) {
+    localStorage.removeItem('pinOk');
+    showPin(); return;
+  }
   startApp();
 }
 function startApp() {
@@ -305,10 +310,14 @@ function loadFromSheets() {
     .catch(function() { setSyncStatus('error', '연결 오류'); });
 }
 function apiSave(sid, data) {
-  var body = 'action=save&data=' + encodeURIComponent(JSON.stringify(
-    { stationId: sid, doorPw: data.doorPw, roofPw: data.roofPw,
-      elevator: data.elevator, note: data.note, updated: data.updated }
-  ));
+  var body = 'action=save&data=' + encodeURIComponent(JSON.stringify({
+    stationId: sid,
+    doorPw:    data.doorPw    ? String(data.doorPw)    : '',
+    roofPw:    data.roofPw    ? String(data.roofPw)    : '',
+    elevator:  data.elevator  ? String(data.elevator)  : '',
+    note:      data.note      ? String(data.note)      : '',
+    updated:   data.updated
+  }));
   return fetch(scriptUrl, { method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body: body })
     .then(function(r) { return r.json(); });
 }
