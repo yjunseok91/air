@@ -312,6 +312,7 @@ function loadFromSheets() {
 function apiSave(sid, data) {
   var payload = JSON.stringify({
     stationId: sid,
+    year:      '2025',
     doorPw:    data.doorPw    ? String(data.doorPw)    : '',
     roofPw:    data.roofPw    ? String(data.roofPw)    : '',
     elevator:  data.elevator  ? String(data.elevator)  : '',
@@ -323,12 +324,12 @@ function apiSave(sid, data) {
     .then(function(r) { return r.json(); });
 }
 function apiDelete(sid) {
-  return fetch(scriptUrl + '?action=delete&stationId=' + sid)
+  return fetch(scriptUrl + '?action=delete&stationId=' + sid + '&year=2025')
     .then(function(r) { return r.json(); });
 }
 
 /* ── 로컬 캐시 ── */
-function getRecord(sid) { return sheetsData[String(sid)] || null; }
+function getRecord(sid) { return sheetsData[String(sid) + '_2025'] || null; }
 
 /* ── 대분류 칩 ── */
 var CATEGORIES = ['전체','도시대기','도로변대기','교외대기','국가배경','항만'];
@@ -581,7 +582,7 @@ function saveRecord() {
   var data = { doorPw:doorPw, roofPw:roofPw, elevator:elevator, note:note, updated:new Date().toISOString() };
   apiSave(currentStationId, data).then(function(res) {
     if (res.ok) {
-      sheetsData[String(currentStationId)] = Object.assign({ stationId:currentStationId }, data);
+      sheetsData[String(currentStationId) + '_2025'] = Object.assign({ stationId:currentStationId, year:'2025' }, data);
       pwVisible = {};
       setSyncStatus('ok', '저장 완료 \u2713');
       renderDetail();
