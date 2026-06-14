@@ -310,20 +310,20 @@ function loadFromSheets() {
     .catch(function() { setSyncStatus('error', '연결 오류'); });
 }
 function apiSave(sid, data) {
-  var body = 'action=save&data=' + encodeURIComponent(JSON.stringify({
+  var payload = JSON.stringify({
     stationId: sid,
     doorPw:    data.doorPw    ? String(data.doorPw)    : '',
     roofPw:    data.roofPw    ? String(data.roofPw)    : '',
     elevator:  data.elevator  ? String(data.elevator)  : '',
     note:      data.note      ? String(data.note)      : '',
     updated:   data.updated
-  }));
-  return fetch(scriptUrl, { method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body: body })
+  });
+  var url = scriptUrl + '?action=save&data=' + encodeURIComponent(payload);
+  return fetch(url)
     .then(function(r) { return r.json(); });
 }
 function apiDelete(sid) {
-  return fetch(scriptUrl, { method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'},
-    body: 'action=delete&stationId=' + sid })
+  return fetch(scriptUrl + '?action=delete&stationId=' + sid)
     .then(function(r) { return r.json(); });
 }
 
