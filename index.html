@@ -551,9 +551,9 @@ function openEdit() {
     '<div style="font-size:13px;color:var(--text3)">' + eH(s.category) + ' &middot; ' + eH(s.region) + ' &middot; ' + eH(s.address) + '</div></div>';
   h += '<div class="form-section">' +
     '<div class="form-row"><span class="form-label">&#128273; 도어락</span>' +
-    '<input type="text" id="f-door" placeholder="비밀번호 입력" value="' + eA(rec.doorPw||'') + '" inputmode="numeric"></div>' +
+    '<input type="text" id="f-door" placeholder="비밀번호 입력" value="' + eA(rec.doorPw||'') + '" inputmode="tel"></div>' +
     '<div class="form-row"><span class="form-label">&#127970; 옥상</span>' +
-    '<input type="text" id="f-roof" placeholder="없으면 비워두기" value="' + eA(rec.roofPw||'') + '" inputmode="numeric"></div>' +
+    '<input type="text" id="f-roof" placeholder="없으면 비워두기" value="' + eA(rec.roofPw||'') + '" inputmode="tel"></div>' +
     '<div class="form-row"><span class="form-label">&#128701; 엘리베이터</span>' +
     '<div class="toggle-wrap">' +
     '<button class="toggle-opt' + (rec.elevator==='yes'?' active':'') + '" id="elev-yes" onclick="toggleElev(\'yes\')">있음</button>' +
